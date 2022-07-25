@@ -1,0 +1,40 @@
+.container {
+    @apply flex-col justify-end gap-8 px-8 py-10 pb-[120px];
+    @apply md:pb-5;
+    @apply xl:flex-row xl:justify-between xl:p-0;
+    @apply relative flex items-center w-screen h-screen box-border overflow-hidden bg-linear-blue;
+}
+
+.leftSection {
+    @apply w-full;
+    @apply xl:w-2/5 xl:absolute;
+    @apply flex flex-col gap-8 z-20 top-[15vh] left-[5vw];
+}
+
+.leftSection .goButton {
+    @apply fixed bottom-[30px] mx-auto w-full max-w-[90vw] left-0 right-0 justify-center;
+    @apply md:relative md:top-0 md:mx-0 md:w-fit md:right-auto md:justify-between;
+}
+
+.leftSection > h1 {
+    @apply text-2xl;
+    @apply sm:text-3xl;
+    @apply xl:text-6xl font-medium font-inter text-blue-900;
+}
+
+.leftSection > h1 > span {
+    @apply text-blue-600;
+}
+
+.rightSection {
+    @apply bottom-[4vh] right-0;
+    @apply xl:bottom-0 xl:right-0 xl:absolute;
+    @apply z-10 bottom-[4vh] right-[5vw];
+}
+
+.rightSection > svg {
+    @apply w-[100vw] h-[70vw];
+    @apply md:w-[90vw] md:h-[55vw];
+    @apply xl:w-[120vh] xl:h-[80vh];
+    @apply max-w-[100vw] max-h-screen;
+}
