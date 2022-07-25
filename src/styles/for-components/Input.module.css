@@ -1,0 +1,44 @@
+.parent {
+    @apply relative;
+    @apply h-full max-h-[90px];
+}
+
+.container {
+    @apply flex relative justify-center items-center transition transition-all duration-500 ease-in-out top-0;
+    @apply rounded-lg;
+    @apply bg-grey-200;
+    @apply h-full max-h-[50px];
+    @apply pr-8;
+}
+
+.big {
+    @apply h-[100px] max-h-[100px] top-[-50%] z-50 drop-shadow-lg;
+}
+
+.container > textarea,
+.container > input {
+    @apply px-4 box-border block w-full h-full bg-transparent outline-none  text-gray-500 font-medium placeholder-gray-400;
+}
+.container > textarea {
+    @apply py-4 resize-none overflow-hidden max-h-[100%];
+}
+
+.actionsAndFeedbacks {
+    @apply flex justify-center items-center text-gray-400 gap-3 text-sm;
+}
+.remainingCharactersLength {
+    @apply font-semibold font-inter cursor-default;
+}
+
+.remainingCharacterOrange {
+    @apply text-orange-200;
+}
+
+.remainingCharacterRed {
+    @apply text-red-200;
+}
+
+
+.back {
+    @apply fixed box-border w-screen h-screen top-0 left-0 bg-black bg-opacity-30 z-40;
+}

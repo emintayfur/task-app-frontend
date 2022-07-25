@@ -1,0 +1,16 @@
+.container {
+    @apply flex flex-col gap-2 h-full rounded-xl bg-grey-300;
+    @apply px-0 py-7;
+    @apply font-inter text-grey-600 drop-shadow-md;
+    @apply w-[440px] max-w-[540px];
+}
+
+.container > h1 {
+    @apply flex gap-2;
+    @apply font-semibold text-[32px] text-grey-500;
+    @apply py-2 px-7;
+}
+
+.list {
+    @apply flex flex-col flex-1 gap-4 px-5 py-2;
+}

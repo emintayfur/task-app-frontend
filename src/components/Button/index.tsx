@@ -1,6 +1,12 @@
 import React from 'react';
 import styles from '../../styles/for-components/Button.module.css';
-import {ButtonColor, ButtonJustify, ButtonSize, TButtonProps} from "./types";
+import {
+    ButtonColor,
+    ButtonJustify,
+    ButtonSize,
+    ButtonStatus,
+    TButtonProps,
+} from './types';
 
 const colorClassNames: { [keys in ButtonColor]: string } = {
     [ButtonColor.default]: '',
@@ -8,13 +14,13 @@ const colorClassNames: { [keys in ButtonColor]: string } = {
     [ButtonColor.blue]: styles.btnBlue,
     [ButtonColor.orange]: styles.btnOrange,
     [ButtonColor.red]: styles.btnRed,
-}
+};
 
 const sizeClassNames: { [keys in ButtonSize]: string } = {
     [ButtonSize.small]: styles.btnSmall,
     [ButtonSize.default]: '',
     [ButtonSize.large]: styles.btnLarge,
-}
+};
 
 const justifyClassNames: { [keys in ButtonJustify]: string } = {
     [ButtonJustify.default]: '',
@@ -22,36 +28,91 @@ const justifyClassNames: { [keys in ButtonJustify]: string } = {
     [ButtonJustify.center]: styles.btnJustifyCenter,
     [ButtonJustify.spaceBetween]: styles.btnJustifyBetween,
     [ButtonJustify.end]: styles.btnJustifyEnd,
-}
+};
 
-const Button = (props: TButtonProps) => {
+const buttonStatusClassNames: { [keys in ButtonStatus]: string } = {
+    [ButtonStatus.default]: '',
+    [ButtonStatus.actionDefined]: styles.btnActive,
+    [ButtonStatus.disabled]: styles.btnDisabled,
+};
+
+const Button = React.forwardRef<any, TButtonProps>((props, ref) => {
     const {
+        component = 'button',
+        href,
         color = ButtonColor.default,
         size = ButtonSize.default,
         justify = ButtonJustify.default,
+        disabled = false,
+        noBg = false,
+        noShadow = false,
+        bold = false,
+        onClick,
         className,
         title,
         children,
     } = props;
+
+    let status: ButtonStatus = ButtonStatus.default;
+    if (disabled) status = ButtonStatus.disabled;
+    else if (onClick) status = ButtonStatus.actionDefined;
 
     const classNames: string[] = [
         styles.container,
         sizeClassNames[size],
         colorClassNames[color],
         justifyClassNames[justify],
+        buttonStatusClassNames[status],
+        noBg ? styles.noBg : '',
+        noShadow ? styles.noShadow : '',
+        bold ? styles.bold : '',
+        className || '',
     ];
 
-    if (className) classNames.push(className);
+    const componentChildren = <>{title || children}</>;
 
-    return (
-        <div
-            aria-hidden="true"
-            className={classNames.join(' ')}
-        >
-            {title || children}
-        </div>
-    );
-};
+    const componentDefaultProps = {
+        ref,
+        className: classNames.filter((className) => className).join(' '),
+        onClick,
+    };
+
+    switch (component) {
+        case 'div': {
+            return (
+                <div
+                    aria-hidden={onClick ? 'true' : undefined}
+                    {...componentDefaultProps}
+                >
+                    {componentChildren}
+                </div>
+            );
+        }
+        case 'a': {
+            if (!href) {
+                throw new Error(
+                    "Button'un tipit('component' değeri) 'a' olarak gönderilmiş ancak zorunlu olan 'href' etiketi belirtilmemiş!",
+                );
+            }
+
+            return (
+                <a href={href} {...(componentDefaultProps as any)}>
+                    {componentChildren}
+                </a>
+            );
+        }
+        case 'button':
+        default: {
+            return (
+                <button type="button" {...componentDefaultProps}>
+                    {componentChildren}
+                </button>
+            );
+        }
+    }
+});
+
+Button.displayName = 'AppButton';
 
 export * from './types';
 export default Button;

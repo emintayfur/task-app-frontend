@@ -1,0 +1,22 @@
+.container {
+    @apply flex flex-col gap-3 justify-center items-center transition transition-all duration-500 ease-in-out top-0 font-inter;
+    @apply rounded-lg;
+    @apply bg-white;
+    @apply p-4 pl-6;
+}
+
+.header {
+    @apply w-full flex justify-between items-center gap-3;
+}
+
+.header > button {
+    @apply text-grey-350;
+}
+
+.date {
+    @apply text-[14px] font-semibold text-grey-400;
+}
+
+.content {
+    @apply font-semibold text-gray-600
+}

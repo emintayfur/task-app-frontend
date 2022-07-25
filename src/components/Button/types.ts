@@ -1,4 +1,9 @@
-import type { ReactNode } from "react";
+import type {
+    ButtonHTMLAttributes,
+    DetailedHTMLProps,
+    MouseEventHandler,
+    ReactNode,
+} from 'react';
 
 export enum ButtonColor {
     default,
@@ -22,11 +27,32 @@ export enum ButtonJustify {
     end,
 }
 
-export interface IButtonPropDefaults {
+export enum ButtonStatus {
+    default,
+    actionDefined,
+    disabled,
+}
+
+export interface IButtonPropDefaults
+    extends Omit<
+        DetailedHTMLProps<
+            ButtonHTMLAttributes<HTMLButtonElement>,
+            HTMLButtonElement
+        >,
+        'color' | 'className' | 'onClick' | 'ref'
+    > {
     color?: ButtonColor;
     size?: ButtonSize;
     justify?: ButtonJustify;
     className?: string;
+    component?: 'div' | 'button' | 'a';
+    href?: string;
+    onClick?: MouseEventHandler<
+        HTMLDivElement | HTMLButtonElement | HTMLLinkElement
+    >;
+    noBg?: boolean;
+    noShadow?: boolean;
+    bold?: boolean;
 }
 
 export interface IButtonPropsWithTitle extends IButtonPropDefaults {
