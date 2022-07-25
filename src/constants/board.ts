@@ -1,6 +1,9 @@
+import BoardId from '../enums/BoardId';
+
 export interface IBoard {
     id: string;
     name: string;
+    linearClassName?: string;
     prefixEmoji?: string;
     color?: {
         primary: string;
@@ -14,9 +17,10 @@ export interface IBoard {
 }
 
 export const BOARD_URGENT: IBoard = {
-    id: 'urgent',
+    id: BoardId.urgent,
     prefixEmoji: '💣',
     name: 'Acil',
+    linearClassName: 'bg-linear-red',
     color: {
         primary: '#C86E5A',
         secondary: '#FFDED7',
@@ -29,9 +33,10 @@ export const BOARD_URGENT: IBoard = {
 };
 
 export const BOARD_IMPORTANT: IBoard = {
-    id: 'important',
+    id: BoardId.important,
     prefixEmoji: '🛑',
     name: 'Önemli',
+    linearClassName: 'bg-linear-orange',
     color: {
         primary: '#DC8B2C',
         secondary: '#FFE1BE',
@@ -44,9 +49,10 @@ export const BOARD_IMPORTANT: IBoard = {
 };
 
 export const BOARD_NORMAL: IBoard = {
-    id: 'normal',
+    id: BoardId.normal,
     prefixEmoji: '📌',
     name: 'Normal',
+    linearClassName: 'bg-linear-blue',
     color: {
         primary: '#6C63FF',
         secondary: '#D7E1FE',
@@ -59,17 +65,17 @@ export const BOARD_NORMAL: IBoard = {
 };
 
 export const BOARD_DONE: IBoard = {
-    id: 'done',
+    id: BoardId.done,
     prefixEmoji: '🎉',
     name: 'Bitti',
     level: 1,
 };
 
-const Board = {
-    urgent: BOARD_URGENT,
-    important: BOARD_IMPORTANT,
-    normal: BOARD_NORMAL,
-    done: BOARD_DONE,
+const Board: { [keys in BoardId]: IBoard } = {
+    [BoardId.urgent]: BOARD_URGENT,
+    [BoardId.important]: BOARD_IMPORTANT,
+    [BoardId.normal]: BOARD_NORMAL,
+    [BoardId.done]: BOARD_DONE,
 };
 
 export default Board;

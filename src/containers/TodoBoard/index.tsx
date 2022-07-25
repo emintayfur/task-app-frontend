@@ -22,11 +22,6 @@ const TodoBoard = (props: ITodoBoardProps) => {
             <Scrollbars autoHide autoHideDuration={100} universal>
                 <div className={styles.list}>
                     <ToDoItem />
-                    <ToDoItem />
-                    <ToDoItem />
-                    <ToDoItem />
-                    <ToDoItem />
-                    <ToDoItem />
                 </div>
             </Scrollbars>
         </div>

@@ -51,6 +51,7 @@ const Button = React.forwardRef<any, TButtonProps>((props, ref) => {
         className,
         title,
         children,
+        ...otherProps
     } = props;
 
     let status: ButtonStatus = ButtonStatus.default;
@@ -75,6 +76,7 @@ const Button = React.forwardRef<any, TButtonProps>((props, ref) => {
         ref,
         className: classNames.filter((className) => className).join(' '),
         onClick,
+        ...(otherProps as any),
     };
 
     switch (component) {

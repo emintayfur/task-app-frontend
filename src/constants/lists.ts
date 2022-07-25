@@ -1,4 +1,4 @@
-import Board, { IBoard } from './Board';
+import Board, { IBoard } from './board';
 
 export const boards: IBoard[] = [
     Board.urgent,
@@ -6,3 +6,5 @@ export const boards: IBoard[] = [
     Board.normal,
     Board.done,
 ];
+
+export const priorities = [Board.urgent, Board.important, Board.normal];

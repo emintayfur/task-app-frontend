@@ -5,19 +5,6 @@ const AppDocument = () => {
     return (
         <Html>
             <Head>
-                {/** FavIcon */}
-                <link rel="icon" type="image/x-icon" href="favicon.ico" />
-                <link
-                    rel="icon"
-                    type="image/svg+xml"
-                    href="favicon/blue/icon.svg"
-                />
-                <link
-                    rel="icon"
-                    type="image/png"
-                    href="favicon/blue/icon.png"
-                />
-
                 {/** Fonts */}
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link
