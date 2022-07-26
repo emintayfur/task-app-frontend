@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import styles from '../../styles/for-containers/AddTask.module.css';
 import RiseTechLogo from '../../assets/svg/riseTechLogo.svg';
 import Button, { ButtonColor, ButtonSize } from '../../components/Button';
@@ -9,8 +10,9 @@ import Board from '../../constants/board';
 import { boards } from '../../constants/lists';
 import { setPriority } from '../../store/actions/priority';
 import BoardId from '../../enums/BoardId';
+import { addTodo } from '../../store/actions/todos';
 
-const addTaskInitialValues = {
+const addTodoInitialValues = {
     todo: '',
 };
 
@@ -18,9 +20,21 @@ const AddTodoContainer = () => {
     const priorityValue = useAppSelector((state) => state.priority);
     const dispatch = useAppDispatch();
 
-    const handleAddTaskFormSubmit = useCallback((values: any) => {
-        console.log('values', values);
-    }, []);
+    const handleAddTaskFormSubmit = useCallback(
+        (values: any, { resetForm }: any) => {
+            dispatch(
+                addTodo({
+                    id: nanoid(),
+                    board: priorityValue,
+                    text: values.todo,
+                    createdAt: new Date().toISOString(),
+                }),
+            );
+
+            resetForm();
+        },
+        [priorityValue, dispatch],
+    );
 
     const activePriority = useMemo(() => {
         return Board[priorityValue];
@@ -55,47 +69,54 @@ const AddTodoContainer = () => {
             }}
         >
             <Formik
-                initialValues={addTaskInitialValues}
+                initialValues={addTodoInitialValues}
                 onSubmit={handleAddTaskFormSubmit}
             >
-                <Form>
-                    <div className={styles.leftContainer}>
-                        <RiseTechLogo viewBox="0 0 223.67 234.18" />
+                {(formikProps) => (
+                    <Form>
+                        <div className={styles.leftContainer}>
+                            <RiseTechLogo viewBox="0 0 223.67 234.18" />
+
+                            <Button
+                                noShadow
+                                title={activePriority.name}
+                                size={ButtonSize.small}
+                                color={ButtonColor.lightBlue}
+                                style={{
+                                    backgroundColor:
+                                        activePriority?.color?.secondary,
+                                    color: activePriority?.color?.primary,
+                                    width: 120,
+                                }}
+                                onClick={handleClickPriorityButton}
+                            />
+
+                            <div className={styles.inputContainer}>
+                                <InputField
+                                    fieldProps={{
+                                        name: 'todo',
+                                    }}
+                                />
+                            </div>
+                        </div>
 
                         <Button
-                            noShadow
-                            title={activePriority.name}
-                            size={ButtonSize.small}
+                            noBg
+                            bold
+                            title="Ekle"
+                            type="submit"
+                            className="text-2xl"
                             color={ButtonColor.lightBlue}
-                            style={{
-                                backgroundColor:
-                                    activePriority?.color?.secondary,
-                                color: activePriority?.color?.primary,
-                                width: 120,
-                            }}
-                            onClick={handleClickPriorityButton}
+                            disabled={Boolean(
+                                !formikProps.values.todo?.length ||
+                                    formikProps.errors.todo,
+                            )}
+                            size={ButtonSize.small}
+                            onClick={() => null}
+                            style={{ color: activePriority?.color?.primary }}
                         />
-
-                        <div className={styles.inputContainer}>
-                            <InputField
-                                fieldProps={{
-                                    name: 'taskPriority',
-                                }}
-                            />
-                        </div>
-                    </div>
-
-                    <Button
-                        noBg
-                        bold
-                        title="Ekle"
-                        className="text-2xl"
-                        color={ButtonColor.lightBlue}
-                        size={ButtonSize.small}
-                        onClick={() => null}
-                        style={{ color: activePriority?.color?.primary }}
-                    />
-                </Form>
+                    </Form>
+                )}
             </Formik>
         </div>
     );

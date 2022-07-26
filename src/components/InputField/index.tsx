@@ -31,7 +31,7 @@ const InputField = (props: IInputFieldProps) => {
         const remainingLength = maxLength - field.value?.length;
         const maxLength30 = maxLength * 0.3;
 
-        if (field.value?.length > maxLength)
+        if (field.value?.length >= maxLength)
             returnedClassName.push(styles.remainingCharacterRed);
         else if (maxLength30 >= remainingLength)
             returnedClassName.push(styles.remainingCharacterOrange);

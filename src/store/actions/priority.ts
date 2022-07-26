@@ -1,4 +1,4 @@
 import { createAction } from '@reduxjs/toolkit';
-import { IBoard } from '../../constants/board';
+import Board from '../../constants/board';
 
-export const setPriority = createAction<IBoard['id']>('SET_PRIORITY');
+export const setPriority = createAction<keyof typeof Board>('SET_PRIORITY');

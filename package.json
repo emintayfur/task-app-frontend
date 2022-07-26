@@ -11,9 +11,12 @@
         "format:fix": "prettier --write --ignore-path .gitignore ."
     },
     "dependencies": {
+        "@formkit/auto-animate": "^1.0.0-beta.1",
         "@reduxjs/toolkit": "^1.8.3",
         "@tanstack/react-query": "^4.0.10",
+        "dayjs": "^1.11.4",
         "formik": "^2.2.9",
+        "nanoid": "^4.0.0",
         "next": "12.2.3",
         "react": "18.2.0",
         "react-beautiful-dnd": "^13.1.0",

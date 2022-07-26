@@ -3,6 +3,7 @@ import Board from '../../constants/board';
 import { addTodo } from '../actions/todos';
 
 export interface TodoElem {
+    id: string;
     board: keyof typeof Board;
     text: string;
     createdAt: string;

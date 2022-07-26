@@ -1,7 +1,7 @@
 import BoardId from '../enums/BoardId';
 
 export interface IBoard {
-    id: string;
+    id: BoardId;
     name: string;
     linearClassName?: string;
     prefixEmoji?: string;

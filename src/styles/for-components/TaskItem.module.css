@@ -1,5 +1,5 @@
 .container {
-    @apply flex flex-col gap-3 justify-center items-center transition transition-all duration-500 ease-in-out top-0 font-inter;
+    @apply flex flex-col gap-3 transition transition-all duration-500 ease-in-out top-0 font-inter;
     @apply rounded-lg;
     @apply bg-white;
     @apply p-4 pl-6;
