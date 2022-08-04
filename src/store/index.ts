@@ -16,7 +16,7 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
-    whitelist: ['todos'],
+    whitelist: ['tasks'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

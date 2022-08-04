@@ -75,7 +75,7 @@ const Button = React.forwardRef<any, TButtonProps>((props, ref) => {
     const componentDefaultProps = {
         ref,
         className: classNames.filter((className) => className).join(' '),
-        onClick,
+        onClick: disabled ? undefined : onClick,
         ...(otherProps as any),
     };
 
@@ -93,7 +93,7 @@ const Button = React.forwardRef<any, TButtonProps>((props, ref) => {
         case 'a': {
             if (!href) {
                 throw new Error(
-                    "Button'un tipit('component' değeri) 'a' olarak gönderilmiş ancak zorunlu olan 'href' etiketi belirtilmemiş!",
+                    "Button'un tipi('component' değeri) 'a' olarak gönderilmiş ancak zorunlu olan 'href' etiketi belirtilmemiş!",
                 );
             }
 

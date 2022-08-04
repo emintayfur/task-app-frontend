@@ -1,29 +1,38 @@
 import { useCallback, useMemo, useState } from 'react';
+import type { ChangeEventHandler } from 'react';
 import { useField } from 'formik';
+import Tippy from '@tippyjs/react';
 import { IInputFieldProps } from './types';
 import styles from '../../styles/for-components/Input.module.css';
+
 import ResizeToBigIcon from '../../assets/svg/icons/resize-toBig.svg';
-import ResizeToNormalIcon from '../../assets/svg/icons/resize-toNormal.svg';
+import IconX from '../../assets/svg/icons/x.svg';
+import IconBoltOutlined from '../../assets/svg/icons/bolt-outlined.svg';
+import IconBoltFilled from '../../assets/svg/icons/bolt-filled.svg';
+import Tip from '../../constants/tip';
+import { useAppDispatch } from '../../store/hooks';
+import { setSearchText } from '../../store/actions/searchText';
 
 const maxLength = 255;
 const InputField = (props: IInputFieldProps) => {
     const { fieldProps } = props;
+    const [isSmartInput, setIsSmartInput] = useState<boolean>(true);
     const [size, setSize] = useState<'big' | 'normal'>('normal');
+    const dispatch = useAppDispatch();
 
-    const [field, meta] = useField(fieldProps);
+    const [field, meta, helpers] = useField(fieldProps);
 
-    const resizeIconProps = {
-        viewBox: '0 0 64 64',
-        width: 25,
-        height: 25,
-    };
+    const inputIconProps = useMemo(
+        () => ({
+            viewBox: '0 0 64 64',
+            width: 25,
+            height: 25,
+        }),
+        [],
+    );
     const resizeIcon = useMemo(() => {
-        if (size === 'big') return ResizeToNormalIcon;
+        if (size === 'big') return IconX;
         return ResizeToBigIcon;
-    }, [size]);
-
-    const handleClickResizeIcon = useCallback(() => {
-        setSize(size === 'big' ? 'normal' : 'big');
     }, [size]);
 
     const remainingLengthTextClassName = useMemo(() => {
@@ -38,6 +47,7 @@ const InputField = (props: IInputFieldProps) => {
 
         return returnedClassName.filter((className) => className).join(' ');
     }, [field.value]);
+
     const inputContainerClassName = useMemo(() => {
         let returnedClassName: string[] = [styles.container];
 
@@ -46,25 +56,46 @@ const InputField = (props: IInputFieldProps) => {
         return returnedClassName.filter((className) => className).join(' ');
     }, [size]);
 
+    const handleClickResizeIcon = useCallback(() => {
+        setSize(size === 'big' ? 'normal' : 'big');
+    }, [size]);
+
+    const handleInputChange = useCallback<
+        ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>
+    >(
+        (event) => {
+            const value = event.target.value;
+            helpers.setValue(value);
+            helpers.setTouched(true);
+
+            if (isSmartInput) dispatch(setSearchText(value));
+        },
+        [helpers, dispatch, isSmartInput],
+    );
+
+    const toggleSmartInput = useCallback(() => {
+        let searchValue = isSmartInput ? '' : field.value;
+
+        setIsSmartInput(!isSmartInput);
+        dispatch(setSearchText(searchValue));
+    }, [dispatch, isSmartInput, field.value]);
+
+    const defaultInputProps = {
+        placeholder: 'Veritabanı bağlantısını yap ...',
+        required: true,
+        minLength: 0,
+        ...field,
+        onChange: handleInputChange,
+    };
+
     return (
         <div className={styles.parent}>
             <div className={inputContainerClassName}>
                 {size === 'big' && (
-                    <textarea
-                        minLength={0}
-                        rows={3}
-                        cols={3}
-                        placeholder="Veritabanı bağlantısını yap ..."
-                        {...field}
-                    />
+                    <textarea rows={3} cols={3} {...defaultInputProps} />
                 )}
                 {size === 'normal' && (
-                    <input
-                        type="text"
-                        minLength={0}
-                        placeholder="Veritabanı bağlantısını yap ..."
-                        {...field}
-                    />
+                    <input type="text" {...defaultInputProps} />
                 )}
 
                 <div className={styles.actionsAndFeedbacks}>
@@ -74,9 +105,33 @@ const InputField = (props: IInputFieldProps) => {
                         )}
                     </div>
 
-                    <button type="button" onClick={handleClickResizeIcon}>
-                        {resizeIcon(resizeIconProps)}
-                    </button>
+                    <Tippy
+                        content={
+                            size === 'big'
+                                ? Tip.inputSizeIs.big
+                                : Tip.inputSizeIs.normal
+                        }
+                    >
+                        <button type="button" onClick={handleClickResizeIcon}>
+                            {resizeIcon(inputIconProps)}
+                        </button>
+                    </Tippy>
+                    <Tippy
+                        content={
+                            isSmartInput
+                                ? Tip.smartInputIs.active
+                                : Tip.smartInputIs.deActive
+                        }
+                    >
+                        <button type="button" onClick={toggleSmartInput}>
+                            {isSmartInput && (
+                                <IconBoltFilled {...inputIconProps} />
+                            )}
+                            {!isSmartInput && (
+                                <IconBoltOutlined {...inputIconProps} />
+                            )}
+                        </button>
+                    </Tippy>
                 </div>
             </div>
             {size === 'big' && (

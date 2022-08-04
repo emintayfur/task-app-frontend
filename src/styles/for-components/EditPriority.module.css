@@ -1,0 +1,28 @@
+.backdrop {
+    @apply fixed z-30 w-screen h-screen top-0 left-0;
+}
+
+.boxContainer {
+    @apply absolute bg-white border-gray-300 rounded-lg drop-shadow-xl z-40 font-inter box-border overflow-hidden;
+}
+
+.boxHeader {
+    @apply flex w-full justify-between items-center text-grey-350 border-[#eaeaea] border-l-4;
+}
+
+.boxPriorityList {
+    @apply max-h-[200px] overflow-y-auto;
+}
+
+.boxPriorityButton {
+    --priority-color-primary: black;
+    --priority-color-secondary: #fff;
+    @apply w-full py-4 px-5 text-left border-l-4 font-semibold transition-all ease-in-out duration-300;
+    border-color: var(--priority-color-secondary);
+    color: var(--priority-color-primary);
+}
+
+.boxPriorityButton:hover {
+    border-color: var(--priority-color-primary) !important;
+    background-color: var(--priority-color-secondary) !important;
+}

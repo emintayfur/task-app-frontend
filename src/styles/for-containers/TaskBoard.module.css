@@ -2,7 +2,11 @@
     @apply flex flex-col gap-2 h-full rounded-xl bg-grey-300;
     @apply px-0 py-7;
     @apply font-inter text-grey-600 drop-shadow-md;
-    @apply w-[440px] max-w-[540px];
+    @apply w-[480px] max-w-[540px];
+}
+
+.muted {
+    @apply text-grey-350 opacity-70 font-medium text-xl;
 }
 
 .container > h1 {

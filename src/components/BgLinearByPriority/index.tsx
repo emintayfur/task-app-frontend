@@ -1,12 +1,24 @@
 import React, { useMemo } from 'react';
 import { useAppSelector } from '../../store/hooks';
-import Board from '../../constants/board';
 
 const BgLinearByPriority = () => {
     const priority = useAppSelector((state) => state.priority);
 
     const activePriority = useMemo(() => {
-        return Board[priority];
+        if (
+            !(
+                priority.selectedPriority &&
+                priority.is.fetched &&
+                Object.keys(priority.fetchedData.obj).length &&
+                priority.fetchedData.obj[priority.selectedPriority] &&
+                priority.fetchedData.obj[priority.selectedPriority]
+                    .linearClassName
+            )
+        ) {
+            return null;
+        }
+
+        return priority.fetchedData.obj[priority.selectedPriority];
     }, [priority]);
 
     if (!activePriority?.linearClassName) return <></>;
