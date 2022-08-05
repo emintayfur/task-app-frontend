@@ -6,12 +6,20 @@
     @apply flex justify-between items-center px-3 py-2 border-2 border-green-200 rounded-lg font-inter font-semibold text-xs;
 }
 
+.deActive {
+    @apply border-grey-300;
+}
+
 .orderItemLeftContent {
     @apply flex items-center gap-2.5 text-grey-400;
 }
 
 .orderItemContentOrderIndex {
     @apply flex justify-center items-center w-6 h-6 rounded-full bg-green-200 text-white;
+}
+
+.deActive .orderItemContentOrderIndex {
+    @apply bg-grey-200 text-grey-350 text-opacity-50;
 }
 
 .orderItemContentOrderValue {

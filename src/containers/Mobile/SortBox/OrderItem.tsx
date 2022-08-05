@@ -1,6 +1,8 @@
 import styles from '../../../styles/for-components/SortBox.module.css';
 import { IOrderItemProps } from './types';
 import { valueStrToOrderType } from '../../../constants/order';
+import { classNameList } from '../../../utils/className';
+import { useMemo } from 'react';
 
 const SortOrderItem = (props: IOrderItemProps) => {
     const { index, title, labels, value = 0, onClick } = props;
@@ -10,8 +12,18 @@ const SortOrderItem = (props: IOrderItemProps) => {
     if (orderType in labels)
         valueLabel = labels[orderType as keyof typeof labels];
 
+    const isDeActive = useMemo(() => {
+        return value === 0;
+    }, [value]);
+
     return (
-        <button className={styles.orderItemMainContainer} onClick={onClick}>
+        <button
+            className={classNameList([
+                styles.orderItemMainContainer,
+                isDeActive ? styles.deActive : undefined,
+            ])}
+            onClick={onClick}
+        >
             {/* Order & Title */}
             <div className={styles.orderItemLeftContent}>
                 <div className={styles.orderItemContentOrderIndex}>
