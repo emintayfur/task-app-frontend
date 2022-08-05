@@ -6,4 +6,3 @@ export interface IDashboardGlobalProps {
 }
 
 export interface IDashboardDesktopProps extends IDashboardGlobalProps {}
-export interface IDashboardMobileProps extends IDashboardGlobalProps {}

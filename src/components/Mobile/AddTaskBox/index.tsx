@@ -6,13 +6,13 @@ import React, {
     useState,
 } from 'react';
 import { nanoid } from 'nanoid';
-import MobileBox from '../MobileBox';
+import MobileBox from '../../../containers/Mobile/Box';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { setSelectedPriority } from '../../../store/actions/priority';
+import { addTask } from '../../../store/actions/tasks';
+import { TASK_TEXT_MAX_LENGTH } from '../../../store/reducers/tasks';
+import Tip from '../../../constants/tip';
 import { IAddTaskBoxProps } from './types';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setSelectedPriority } from '../../store/actions/priority';
-import { addTask } from '../../store/actions/tasks';
-import { TASK_TEXT_MAX_LENGTH } from '../../store/reducers/tasks';
-import Tip from '../../constants/tip';
 
 const AddTaskBox = (props: IAddTaskBoxProps) => {
     const { boxManager } = props;

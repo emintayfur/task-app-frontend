@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg-linear-blue {
+    background: linear-gradient(180deg, rgba(108, 99, 255, 0.2) 0%, rgba(217, 217, 217, 0) 73.27%);
+}
+
+.bg-linear-orange {
+    background: linear-gradient(180deg, rgba(220, 139, 44, 0.2) 0%, rgba(217, 217, 217, 0) 73.27%);
+}
+
+.bg-linear-red {
+    background: linear-gradient(180deg, rgba(200, 110, 90, 0.2) 0%, rgba(217, 217, 217, 0) 73.27%);
+}

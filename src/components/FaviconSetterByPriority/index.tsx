@@ -33,7 +33,22 @@ const FaviconSetterByPriority = () => {
     if (!activePriority) {
         return (
             <Head>
-                <link rel="icon" href="favicon.ico" />
+                <link
+                    rel="apple-touch-icon"
+                    sizes="180x180"
+                    href="/apple-touch-icon.png?v=0.1"
+                />
+                <link rel="manifest" href="/site.webmanifest?v=0.1" />
+                <link
+                    rel="mask-icon"
+                    href="/safari-pinned-tab.svg?v=0.1"
+                    color="#5bbad5"
+                />
+                <link rel="shortcut icon" href="/favicon.ico?v=0.1" />
+                <meta name="apple-mobile-web-app-title" content="RiseQ" />
+                <meta name="application-name" content="RiseQ" />
+                <meta name="msapplication-TileColor" content="#da532c" />
+                <meta name="theme-color" content="#DDF0DE" />
             </Head>
         );
     }

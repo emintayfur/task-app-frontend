@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import type { IBoxManager } from '../../../hooks/useBoxManager';
 
 export interface IMobileBoxBackdropProps {
     id: string;
@@ -21,4 +22,8 @@ export interface IMobileBoxProps {
     };
     handleBackdropClick?: IMobileBoxBackdropProps['onClick'];
     children?: ReactNode | ReactNode[];
+}
+
+export interface IBoxGlobal {
+    boxManager: IBoxManager;
 }

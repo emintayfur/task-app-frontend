@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
-import MobileHeader from '../MobileHeader';
-import TaskItem from '../../components/TaskItem';
-import { IDashboardMobileProps } from './types';
+import MobileHeader from '../Header';
+import TaskItem from '../../../components/TaskItem';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
-import TaskListIsEmptyMessage from '../../components/Mobile/TaskListIsEmptyMessage';
-import { useAppSelector } from '../../store/hooks';
+import TaskListIsEmptyMessage from '../TaskListIsEmptyMessage';
+import { useAppSelector } from '../../../store/hooks';
+import { IDashboardMobileProps } from './types';
 
 const DashboardMobile = (props: IDashboardMobileProps) => {
     const { tasks, totalItemCount } = props;

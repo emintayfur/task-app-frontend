@@ -1,89 +1,16 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import MobileBox from '../MobileBox';
-import { IFilterBoxProps } from './types';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import MobileBox from '../../../containers/Mobile/Box';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import {
     INITIAL_ORDER_STATE,
     IOrderStateItem,
-} from '../../store/reducers/order';
-import { clearOrder, setOrder } from '../../store/actions/order';
+} from '../../../store/reducers/order';
+import { clearOrder, setOrder } from '../../../store/actions/order';
+import { IOrderItem, ISortBoxProps } from './types';
+import SortOrderItem from './OrderItem';
+import { orderTypes } from '../../../constants/order';
 
-const valueStrToOrderType: any = {
-    '-1': 'asc',
-    '0': 'default',
-    '1': 'desc',
-};
-
-export interface IOrderItem {
-    id: string;
-    by: string;
-    title: string;
-    labels: {
-        default: string;
-        asc: string;
-        desc: string;
-    };
-}
-
-export interface IOrderItemProps extends IOrderItem {
-    index: number;
-    value?: IOrderStateItem['value'];
-    onClick: () => void;
-}
-
-const OrderItem = (props: IOrderItemProps) => {
-    const { index, title, labels, value = 0, onClick } = props;
-
-    let valueLabel = null;
-    let orderType = valueStrToOrderType[value.toString()];
-    if (orderType in labels)
-        valueLabel = labels[orderType as keyof typeof labels];
-
-    return (
-        <button
-            className="flex justify-between items-center px-3 py-2 border-2 border-green-200 rounded-lg font-inter font-semibold text-xs"
-            onClick={onClick}
-        >
-            {/* Order & Title */}
-            <div className="flex items-center gap-2.5 text-grey-400">
-                <div className="flex justify-center items-center w-6 h-6 rounded-full bg-green-200 text-white">
-                    <span>{index + 1}</span>
-                </div>
-                <p>{title}</p>
-            </div>
-
-            {/** Order Value */}
-            <div className="text-grey-500">
-                <span>{valueLabel}</span>
-            </div>
-        </button>
-    );
-};
-
-const orderTypes: IOrderItem[] = [
-    {
-        id: 'order-by-priority',
-        by: 'priority',
-        title: 'Önceliğe göre',
-        labels: {
-            default: 'Varsayılan',
-            asc: 'Düşükten Yükseğe',
-            desc: 'Yüksekten Düşüğe',
-        },
-    },
-    {
-        id: 'order-by-text',
-        by: 'text',
-        title: 'Metne göre',
-        labels: {
-            default: 'Varsayılan',
-            asc: "A'dan Z'ye",
-            desc: "Z'den A'ya",
-        },
-    },
-];
-
-const SortBox = (props: IFilterBoxProps) => {
+const SortBox = (props: ISortBoxProps) => {
     const { boxManager } = props;
     const dispatch = useAppDispatch();
 
@@ -182,7 +109,7 @@ const SortBox = (props: IFilterBoxProps) => {
                     const foundOrder = orderStateClone[foundOrderIndex];
 
                     return (
-                        <OrderItem
+                        <SortOrderItem
                             key={`task-order-by-${order.by}`}
                             index={foundOrderIndex}
                             value={foundOrder?.value}

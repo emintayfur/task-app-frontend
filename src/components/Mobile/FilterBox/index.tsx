@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import MobileBox from '../../MobileBox';
-import { IFilterBoxProps } from '../types';
+import MobileBox from '../../../containers/Mobile/Box';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import Tip from '../../../constants/tip';
 import IconX from '../../../assets/svg/icons/x.svg';
@@ -11,6 +10,7 @@ import {
 } from '../../../store/reducers/filter';
 import { clearFilter, setFilter } from '../../../store/actions/filter';
 import MultiCheck from '../MultiCheck';
+import { IFilterBoxProps } from './types';
 
 const filterBoxFormInitialValues = {
     contains: '',

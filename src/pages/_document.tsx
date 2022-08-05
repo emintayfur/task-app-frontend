@@ -5,8 +5,6 @@ const AppDocument = () => {
     return (
         <Html>
             <Head>
-                <meta name="theme-color" content="#DDF0DE" />
-
                 {/** Fonts */}
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link

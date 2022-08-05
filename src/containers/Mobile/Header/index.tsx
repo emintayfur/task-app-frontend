@@ -1,20 +1,21 @@
-import React, { useMemo, useRef } from 'react';
-import RiseTechLogo from '../../assets/svg/riseTechLogo.svg';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import RiseTechLogo from '../../../assets/svg/riseTechLogo.svg';
 
-import SortIcon from '../../assets/svg/icons/sort-icon.svg';
-import FilterActive from '../../assets/svg/icons/filter-active.svg';
-import FilterDeActive from '../../assets/svg/icons/filter-deActive.svg';
-import FilterResultText from '../../components/Mobile/Filter/ResultText';
-import { useAppSelector } from '../../store/hooks';
-import { isInitialFilter } from '../../store/reducers/filter';
+import SortIcon from '../../../assets/svg/icons/sort-icon.svg';
+import FilterActive from '../../../assets/svg/icons/filter-active.svg';
+import FilterDeActive from '../../../assets/svg/icons/filter-deActive.svg';
+import FilterResultText from '../../../components/Mobile/FilterResultText';
+import { useAppSelector } from '../../../store/hooks';
+import { isInitialFilter } from '../../../store/reducers/filter';
 import { IMobileHeaderProps } from './types';
-import useBoxManager from '../../hooks/useBoxManager';
-import AddTaskBox from '../../components/Mobile/AddTaskBox';
-import FilterBox from '../../components/Mobile/Filter/FilterBox';
-import SortBox from '../../components/Mobile/SortBox';
+import useBoxManager from '../../../hooks/useBoxManager';
+import AddTaskBox from '../../../components/Mobile/AddTaskBox';
+import FilterBox from '../../../components/Mobile/FilterBox';
+import SortBox from '../../../components/Mobile/SortBox';
 
 const MobileHeader = (props: IMobileHeaderProps) => {
     const { filteredItemCount, itemCount } = props;
+    const [cloneHeaderHeight, setCloneHeaderHeight] = useState(0);
     const containerRef = useRef<HTMLDivElement>(null);
 
     const filter = useAppSelector((state) => state.filter);
@@ -67,6 +68,20 @@ const MobileHeader = (props: IMobileHeaderProps) => {
         return SortIcon(iconProps);
     }, []);
 
+    useEffect(() => {
+        let val = 0;
+
+        if (
+            containerRef?.current?.offsetHeight &&
+            containerRef?.current?.offsetTop
+        )
+            val =
+                containerRef?.current?.offsetHeight +
+                containerRef?.current?.offsetTop;
+
+        setCloneHeaderHeight(val);
+    }, [containerRef]);
+
     return (
         <>
             <div
@@ -104,14 +119,14 @@ const MobileHeader = (props: IMobileHeaderProps) => {
             </div>
 
             {/** Clone */}
-            <div
-                className="w-full"
-                style={{
-                    height:
-                        (containerRef?.current?.offsetHeight || 0) +
-                        (containerRef?.current?.offsetTop || 0),
-                }}
-            />
+            {containerRef?.current && (
+                <div
+                    className="w-full transition-all duration-300 ease-in-out"
+                    style={{
+                        height: cloneHeaderHeight,
+                    }}
+                />
+            )}
 
             {Boolean(filterIsActive && itemCount) && (
                 <FilterResultText count={filteredItemCount} />

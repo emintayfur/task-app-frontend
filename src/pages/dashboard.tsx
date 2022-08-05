@@ -8,9 +8,10 @@ import { prefetchGlobal } from '../service/prefetch';
 import { dehydrate } from '@tanstack/query-core';
 import FetchPriority from '../components/FetchPriority';
 import useMobileViewController from '../hooks/useMobileViewController';
-import DashboardMobile from '../containers/Dashboard/Mobile';
-import DashboardDesktop from '../containers/Dashboard/Desktop';
+import DashboardMobile from '../containers/Mobile/Dashboard';
+import DashboardDesktop from '../containers/Dashboard';
 import { IDashboardGlobalProps } from '../containers/Dashboard/types';
+import Head from 'next/head';
 
 const RiseTechQDashboard: NextPage = () => {
     const state = useAppSelector((state) => state);
@@ -98,6 +99,9 @@ const RiseTechQDashboard: NextPage = () => {
 
     return (
         <>
+            <Head>
+                <title>Görev Paneli | RiseTech</title>
+            </Head>
             <FetchPriority />
             <BgLinearByPriority isMobile={isMobile} />
             <EditTask />

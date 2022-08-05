@@ -1,5 +1,5 @@
 import React from 'react';
-import NotFoundPattern from '../../assets/svg/notFoundPattern.svg';
+import NotFoundPattern from '../../../assets/svg/notFoundPattern.svg';
 
 const TaskListIsEmptyMessage = () => {
     return (
