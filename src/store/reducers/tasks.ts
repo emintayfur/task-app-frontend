@@ -8,10 +8,17 @@ export interface TaskElem {
     createdAt: string;
 }
 
+export const TASK_TEXT_MAX_LENGTH = 255;
 export default createReducer<TaskElem[]>([], (builder) => {
     builder
         .addCase(addTask, (state, action) => {
-            state.push(action.payload);
+            const clonePayload = Object.assign({}, action.payload);
+            clonePayload.text = action.payload.text.slice(
+                0,
+                TASK_TEXT_MAX_LENGTH,
+            );
+
+            state.push(clonePayload);
         })
         .addCase(deleteTask, (state, action) => {
             return state.filter((task) => task.id !== action.payload);

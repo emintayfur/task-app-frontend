@@ -13,7 +13,14 @@ const Tip = {
         cancel: 'Vazgeç',
         delete: 'Sil',
     },
-    editAction: 'Önceliği değiştirmek için tıkla',
+    editAction: {
+        cancel: 'Vazgeç',
+        edit: 'Önceliği değiştirmek için tıkla',
+    },
+    input: {
+        add: 'Veritabanı bağlantısını yap ...',
+        search: '... içeren görevler',
+    },
 };
 
 export default Tip;

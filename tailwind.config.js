@@ -6,6 +6,8 @@ const backgroundImage = {
         'linear-gradient(180deg, rgba(220, 139, 44, 0.2) 0%, rgba(217, 217, 217, 0) 73.27%)',
     'linear-red':
         'linear-gradient(180deg, rgba(200, 110, 90, 0.2) 0%, rgba(217, 217, 217, 0) 73.27%)',
+    'linear-green':
+        'linear-gradient(180deg, rgba(76, 175, 80, 0.2) 0%, rgba(217, 217, 217, 0) 73.27%)',
 };
 
 /** Extends / Colors */
@@ -27,11 +29,19 @@ const colors = {
     },
     grey: {
         200: '#F8F8F8',
+        250: '#BBBBBB',
         300: '#F2F2F3',
         350: '#838791',
         400: '#8A8A8A',
         500: '#50545E',
         600: '#45474A',
+    },
+    green: {
+        100: '#C8E6C9',
+        200: '#A5D6A7',
+        300: '#81C784',
+        400: '#66BB6A',
+        500: '#4CAF50',
     },
 };
 

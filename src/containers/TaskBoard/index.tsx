@@ -8,11 +8,11 @@ import { useAppSelector } from '../../store/hooks';
 
 const TaskBoard = (props: ITaskBoardProps) => {
     const { priority, items } = props;
-    const searchText = useAppSelector((state) => state.searchText);
+    const searchQuery = useAppSelector((state) => state.filter.contains);
 
     const showLength = useMemo(() => {
-        return Boolean(searchText && searchText.length);
-    }, [searchText]);
+        return Boolean(searchQuery && searchQuery.length);
+    }, [searchQuery]);
 
     const [animateRef] = useAutoAnimate<any>();
 

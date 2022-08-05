@@ -9,8 +9,8 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { addTask } from '../../store/actions/tasks';
 import Tippy from '@tippyjs/react';
 import Tip from '../../constants/tip';
-import { setSearchText } from '../../store/actions/searchText';
 import { setSelectedPriority } from '../../store/actions/priority';
+import { clearSearchQuery } from '../../store/actions/filter';
 
 const addTaskInitialValues = {
     task: '',
@@ -35,7 +35,7 @@ const AddTaskContainer = () => {
                     }),
                 );
 
-                dispatch(setSearchText(''));
+                dispatch(clearSearchQuery());
                 resetForm();
             }
         },

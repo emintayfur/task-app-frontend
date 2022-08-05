@@ -11,9 +11,10 @@ import IconBoltOutlined from '../../assets/svg/icons/bolt-outlined.svg';
 import IconBoltFilled from '../../assets/svg/icons/bolt-filled.svg';
 import Tip from '../../constants/tip';
 import { useAppDispatch } from '../../store/hooks';
-import { setSearchText } from '../../store/actions/searchText';
+import { setSearchQuery } from '../../store/actions/filter';
+import { TASK_TEXT_MAX_LENGTH } from '../../store/reducers/tasks';
 
-const maxLength = 255;
+const maxLength = TASK_TEXT_MAX_LENGTH;
 const InputField = (props: IInputFieldProps) => {
     const { fieldProps } = props;
     const [isSmartInput, setIsSmartInput] = useState<boolean>(true);
@@ -68,20 +69,20 @@ const InputField = (props: IInputFieldProps) => {
             helpers.setValue(value);
             helpers.setTouched(true);
 
-            if (isSmartInput) dispatch(setSearchText(value));
+            if (isSmartInput) dispatch(setSearchQuery(value));
         },
         [helpers, dispatch, isSmartInput],
     );
 
     const toggleSmartInput = useCallback(() => {
-        let searchValue = isSmartInput ? '' : field.value;
+        let searchValue = isSmartInput ? null : field.value;
 
         setIsSmartInput(!isSmartInput);
-        dispatch(setSearchText(searchValue));
+        dispatch(setSearchQuery(searchValue));
     }, [dispatch, isSmartInput, field.value]);
 
     const defaultInputProps = {
-        placeholder: 'Veritabanı bağlantısını yap ...',
+        placeholder: Tip.input.add,
         required: true,
         minLength: 0,
         ...field,

@@ -3,14 +3,16 @@ import tasks from './tasks';
 import priority from './priority';
 import deletingTaskId from './deletingTaskId';
 import edit from './edit';
-import searchText from './searchText';
+import filter from './filter';
+import order from './order';
 
 const rootReducer = combineReducers({
     tasks,
     priority,
     deletingTaskId,
     edit,
-    searchText,
+    filter,
+    order,
 });
 
 export default rootReducer;

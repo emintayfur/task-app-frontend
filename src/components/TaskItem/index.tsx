@@ -14,6 +14,7 @@ import TrashIcon from '../../assets/svg/icons/trash.svg';
 import IconPen from '../../assets/svg/icons/pen.svg';
 import IconX from '../../assets/svg/icons/x.svg';
 import { setEdit } from '../../store/actions/edit';
+import useMobileViewController from '../../hooks/useMobileViewController';
 
 const classNameList = (arr: any[]) => {
     const filtered = arr.filter((arr) => arr);
@@ -25,11 +26,14 @@ const classNameList = (arr: any[]) => {
 const TaskItem = (props: ITaskItemProps) => {
     const {
         item: { id, text, createdAt, priority },
+        borderColor,
     } = props;
+
     const editActionButtonRef = useRef<null | HTMLButtonElement>(null);
     const deletingTaskId = useAppSelector((state) => state.deletingTaskId);
     const dispatch = useAppDispatch();
     const [animateRef] = useAutoAnimate<any>();
+    const isMobile = useMobileViewController();
 
     const deleteMe = useMemo(
         () => Boolean(deletingTaskId === id),
@@ -50,7 +54,6 @@ const TaskItem = (props: ITaskItemProps) => {
             ]),
         };
     }, [deleteMe]);
-
     const handleEditButtonClick = useCallback(() => {
         if (editActionButtonRef.current) {
             const boundingClientRect =
@@ -80,7 +83,11 @@ const TaskItem = (props: ITaskItemProps) => {
     }, [deleteMe, dispatch]);
 
     return (
-        <div className={classNames.container} ref={animateRef}>
+        <div
+            className={classNames.container}
+            ref={animateRef}
+            style={{ borderLeftColor: isMobile ? borderColor : undefined }}
+        >
             {/** Header */}
             <div className={styles.header}>
                 {/** Date */}
@@ -93,6 +100,7 @@ const TaskItem = (props: ITaskItemProps) => {
                     {/** Cancel (Delete) */}
                     {deleteMe && (
                         <Tippy
+                            disabled={isMobile}
                             content={Tip.deleteAction.cancel}
                             arrow={false}
                             placement="bottom"
@@ -114,7 +122,8 @@ const TaskItem = (props: ITaskItemProps) => {
                     {/** Edit */}
                     {!deleteMe && (
                         <Tippy
-                            content={Tip.editAction}
+                            disabled={isMobile}
+                            content={Tip.editAction.edit}
                             arrow={false}
                             placement="bottom"
                         >
@@ -135,6 +144,7 @@ const TaskItem = (props: ITaskItemProps) => {
 
                     {/** Delete */}
                     <Tippy
+                        disabled={isMobile}
                         content={Tip.deleteAction.delete}
                         arrow={false}
                         placement="bottom"

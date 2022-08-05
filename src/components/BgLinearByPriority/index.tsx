@@ -1,7 +1,9 @@
 import React, { useMemo } from 'react';
 import { useAppSelector } from '../../store/hooks';
+import { IBgLinearByPriorityProps } from './types';
 
-const BgLinearByPriority = () => {
+const BgLinearByPriority = (props: IBgLinearByPriorityProps) => {
+    const { isMobile } = props;
     const priority = useAppSelector((state) => state.priority);
 
     const activePriority = useMemo(() => {
@@ -21,10 +23,13 @@ const BgLinearByPriority = () => {
         return priority.fetchedData.obj[priority.selectedPriority];
     }, [priority]);
 
-    if (!activePriority?.linearClassName) return <></>;
+    let linearClassName = activePriority?.linearClassName;
+    if (isMobile) linearClassName = 'bg-linear-green';
+
+    if (!linearClassName) return <></>;
     return (
         <div
-            className={`duration-300 transition-all ease-in-out flex fixed top-0 left-0 w-full h-full z-10 ${activePriority.linearClassName}`}
+            className={`duration-300 transition-all ease-in-out flex fixed top-0 left-0 w-full h-full z-10 ${linearClassName}`}
         />
     );
 };

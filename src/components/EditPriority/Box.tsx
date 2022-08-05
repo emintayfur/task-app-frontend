@@ -1,9 +1,12 @@
 import styles from '../../styles/for-components/EditPriority.module.css';
-import React, { useCallback, useMemo } from 'react';
-import IconPen from '../../assets/svg/icons/pen.svg';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import IconX from '../../assets/svg/icons/x.svg';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { clearEdit } from '../../store/actions/edit';
 import { changeTaskPriority } from '../../store/actions/tasks';
+import useMobileViewController from '../../hooks/useMobileViewController';
+import Tippy from '@tippyjs/react';
+import Tip from '../../constants/tip';
 
 const BOX = {
     padding: 18,
@@ -16,6 +19,7 @@ const EditPriorityBox = () => {
     const priorityList = useAppSelector(
         (state) => state?.priority?.fetchedData?.list,
     );
+    const isMobile = useMobileViewController();
 
     const activePriority = useMemo(() => {
         const list = Array.isArray(priorityList) ? priorityList : [];
@@ -46,6 +50,7 @@ const EditPriorityBox = () => {
 
         return { left, top };
     }, [edit]);
+
     const boxStyle = useMemo(
         () => ({
             width: BOX.width,
@@ -55,16 +60,27 @@ const EditPriorityBox = () => {
         [position],
     );
 
+    const closeEditBox = useCallback(() => {
+        dispatch(clearEdit());
+    }, [dispatch]);
+
     const changeTaskPriorityEvent = useCallback(
         (priorityId: string) => () => {
             const taskId = edit.id;
             if (taskId) {
-                dispatch(clearEdit());
+                closeEditBox();
                 dispatch(changeTaskPriority({ priorityId, taskId }));
             }
         },
-        [dispatch, edit.id],
+        [dispatch, edit.id, closeEditBox],
     );
+
+    useEffect(() => {
+        if (isMobile) {
+            const body = document.querySelector('body');
+            if (body) body.style.overflow = edit.id ? 'hidden' : 'auto';
+        }
+    }, [edit.id, isMobile]);
 
     if (!edit.id) return <></>;
     return (
@@ -79,12 +95,20 @@ const EditPriorityBox = () => {
                         {activePriority?.name || 'Öncelik'}
                     </h6>
 
-                    <button
-                        type="button"
-                        className="z-40 select-none cursor-default"
+                    <Tippy
+                        disabled={isMobile}
+                        content={Tip.editAction.cancel}
+                        arrow={false}
+                        placement="bottom"
                     >
-                        <IconPen viewBox="0 0 64 64" width={22} height={22} />
-                    </button>
+                        <button
+                            type="button"
+                            className="z-40 select-none"
+                            onClick={closeEditBox}
+                        >
+                            <IconX viewBox="0 0 64 64" width={22} height={22} />
+                        </button>
+                    </Tippy>
                 </div>
 
                 {/** List */}

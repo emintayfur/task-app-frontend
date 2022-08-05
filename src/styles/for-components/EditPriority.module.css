@@ -1,9 +1,9 @@
 .backdrop {
-    @apply fixed z-30 w-screen h-screen top-0 left-0;
+    @apply fixed z-50 w-screen h-screen top-0 left-0 overflow-hidden;
 }
 
 .boxContainer {
-    @apply absolute bg-white border-gray-300 rounded-lg drop-shadow-xl z-40 font-inter box-border overflow-hidden;
+    @apply fixed z-[55] bg-white border-gray-300 rounded-lg drop-shadow-xl font-inter box-border overflow-hidden;
 }
 
 .boxHeader {
