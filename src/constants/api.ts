@@ -1,5 +1,5 @@
-export const DEVELOPMENT_SERVER_URL = 'http://192.168.1.102:4000';
-export const PRODUCTION_SERVER_URL = 'http://localhost:4000';
+export const DEVELOPMENT_SERVER_URL = 'http://localhost:4000';
+export const PRODUCTION_SERVER_URL = 'https://emins-tasks.herokuapp.com/';
 
 export const SERVER_URL =
     process.env.NODE_ENV === 'development'
