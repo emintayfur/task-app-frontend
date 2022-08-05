@@ -1,7 +1,10 @@
 {
-    "name": "todo-app-frontend",
+    "name": "task-app-frontend",
     "version": "0.1.0",
-    "private": true,
+    "description": "https://github.com/emintayfur/task-app-frontend",
+    "author": "Emin TAYFUR",
+    "private": false,
+    "license": "MPLV2",
     "scripts": {
         "dev": "next dev",
         "build": "next build",
