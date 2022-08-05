@@ -1,0 +1,29 @@
+.container {
+    @apply flex gap-4 fixed top-4 left-0 right-0 mx-auto w-11/12 h-[60px] text-green-500 z-50;
+}
+
+.leftSection {
+    @apply flex justify-between items-center bg-white h-full max-w-full flex-1 rounded-xl px-5 py-4 border shadow-md;
+}
+
+.logoOrSearchTextContainer {
+    @apply flex flex-1 max-w-[100px] overflow-hidden;
+}
+
+.searchText {
+    @apply block font-medium text-green-200 w-full overflow-hidden truncate;
+}
+
+.leftSectionActions {
+    @apply flex gap-2;
+}
+
+.rightSection {
+    @apply w-[130px] text-[14px] font-semibold bg-white rounded-xl border shadow-md;
+}
+
+
+.headerClone {
+    @apply w-full transition-all duration-300 ease-in-out;
+}
+

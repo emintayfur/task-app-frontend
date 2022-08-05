@@ -1,3 +1,4 @@
+import styles from '../../../styles/for-containers/MobileHeader.module.css';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import RiseTechLogo from '../../../assets/svg/riseTechLogo.svg';
 
@@ -9,9 +10,9 @@ import { useAppSelector } from '../../../store/hooks';
 import { isInitialFilter } from '../../../store/reducers/filter';
 import { IMobileHeaderProps } from './types';
 import useBoxManager from '../../../hooks/useBoxManager';
-import AddTaskBox from '../../../components/Mobile/AddTaskBox';
-import FilterBox from '../../../components/Mobile/FilterBox';
-import SortBox from '../../../components/Mobile/SortBox';
+import AddTaskBox from '../AddTaskBox';
+import FilterBox from '../FilterBox';
+import SortBox from '../SortBox';
 
 const MobileHeader = (props: IMobileHeaderProps) => {
     const { filteredItemCount, itemCount } = props;
@@ -34,11 +35,7 @@ const MobileHeader = (props: IMobileHeaderProps) => {
                 filter.contains.length > MAX_CHARACTER_LENGTH ? '...' : ''
             }`;
 
-            return (
-                <span className="block font-medium text-green-200 w-full overflow-hidden truncate">
-                    {text}
-                </span>
-            );
+            return <span className={styles.searchText}>{text}</span>;
         }
     }, [filter.contains]);
 
@@ -84,18 +81,15 @@ const MobileHeader = (props: IMobileHeaderProps) => {
 
     return (
         <>
-            <div
-                ref={containerRef}
-                className="flex gap-4 fixed top-4 left-0 right-0 mx-auto w-11/12 h-[60px] text-green-500 z-50"
-            >
+            <div ref={containerRef} className={styles.container}>
                 {/* Left Section */}
-                <div className="flex justify-between items-center bg-white h-full max-w-full flex-1 rounded-xl px-5 py-4 border shadow-md">
-                    <div className="flex flex-1 max-w-[100px] overflow-hidden ">
+                <div className={styles.leftSection}>
+                    <div className={styles.logoOrSearchTextContainer}>
                         {headerLeft}
                     </div>
 
                     {Boolean(itemCount) && (
-                        <div className="flex gap-2">
+                        <div className={styles.leftSectionActions}>
                             <button type="button" onClick={sortBoxManager.open}>
                                 {sortIcon}
                             </button>
@@ -111,7 +105,7 @@ const MobileHeader = (props: IMobileHeaderProps) => {
 
                 {/** Right Section */}
                 <button
-                    className="w-[130px] text-[14px] font-semibold bg-white rounded-xl border shadow-md"
+                    className={styles.rightSection}
                     onClick={addTaskBoxManager.open}
                 >
                     <span>Görev Oluştur</span>
@@ -121,7 +115,7 @@ const MobileHeader = (props: IMobileHeaderProps) => {
             {/** Clone */}
             {containerRef?.current && (
                 <div
-                    className="w-full transition-all duration-300 ease-in-out"
+                    className={styles.headerClone}
                     style={{
                         height: cloneHeaderHeight,
                     }}

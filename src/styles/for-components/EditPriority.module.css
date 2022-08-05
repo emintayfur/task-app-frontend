@@ -10,6 +10,14 @@
     @apply flex w-full justify-between items-center text-grey-350 border-[#eaeaea] border-l-4;
 }
 
+.headerText {
+    @apply font-semibold;
+}
+
+.buttonClose {
+    @apply z-40 select-none;
+}
+
 .boxPriorityList {
     @apply max-h-[200px] overflow-y-auto;
 }

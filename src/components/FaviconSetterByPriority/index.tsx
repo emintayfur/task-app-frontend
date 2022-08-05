@@ -2,12 +2,15 @@ import React, { useMemo } from 'react';
 import { useAppSelector } from '../../store/hooks';
 import Head from 'next/head';
 import { pathWithServerUrl } from '../../constants/api';
+import useMobileViewController from '../../hooks/useMobileViewController';
 
 const FaviconSetterByPriority = () => {
     const priority = useAppSelector((state) => state.priority);
+    const isMobile = useMobileViewController();
 
     const activePriority = useMemo(() => {
         if (
+            isMobile ||
             !(
                 priority.selectedPriority &&
                 priority.is.fetched &&
@@ -28,6 +31,7 @@ const FaviconSetterByPriority = () => {
         priority.selectedPriority,
         priority.is.fetched,
         priority.fetchedData.obj,
+        isMobile,
     ]);
 
     if (!activePriority) {
@@ -44,6 +48,8 @@ const FaviconSetterByPriority = () => {
                     href="/safari-pinned-tab.svg?v=0.1"
                     color="#5bbad5"
                 />
+                <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+                <link rel="icon" type="image/png" href="/favicon.png" />
                 <link rel="shortcut icon" href="/favicon.ico?v=0.1" />
                 <meta name="apple-mobile-web-app-title" content="RiseQ" />
                 <meta name="application-name" content="RiseQ" />

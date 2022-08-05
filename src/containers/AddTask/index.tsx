@@ -134,7 +134,7 @@ const AddTaskContainer = () => {
                             noBg
                             bold
                             title="Ekle"
-                            className="text-2xl"
+                            className={styles.submitButton}
                             color={ButtonColor.lightBlue}
                             disabled={Boolean(
                                 !formikProps.values.task?.length ||

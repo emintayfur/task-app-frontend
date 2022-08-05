@@ -1,4 +1,4 @@
-import { IBoxGlobal } from '../../../containers/Mobile/Box/types';
+import { IBoxGlobal } from '../../../components/Mobile/Box/types';
 import { IOrderStateItem } from '../../../store/reducers/order';
 
 export interface ISortBoxProps extends IBoxGlobal {}

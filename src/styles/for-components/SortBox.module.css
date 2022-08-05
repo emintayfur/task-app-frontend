@@ -1,0 +1,19 @@
+.container {
+    @apply flex flex-col gap-5 px-6 w-full box-border;
+}
+
+.orderItemMainContainer {
+    @apply flex justify-between items-center px-3 py-2 border-2 border-green-200 rounded-lg font-inter font-semibold text-xs;
+}
+
+.orderItemLeftContent {
+    @apply flex items-center gap-2.5 text-grey-400;
+}
+
+.orderItemContentOrderIndex {
+    @apply flex justify-center items-center w-6 h-6 rounded-full bg-green-200 text-white;
+}
+
+.orderItemContentOrderValue {
+    @apply text-grey-500;
+}

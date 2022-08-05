@@ -1,5 +1,6 @@
+import styles from '../../../styles/for-components/SortBox.module.css';
 import React, { useCallback, useMemo, useState } from 'react';
-import MobileBox from '../../../containers/Mobile/Box';
+import MobileBox from '../../../components/Mobile/Box';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import {
     INITIAL_ORDER_STATE,
@@ -101,7 +102,7 @@ const SortBox = (props: ISortBoxProps) => {
             submitButton={submitButton}
             handleBackdropClick={boxManager.close}
         >
-            <div className="flex flex-col gap-5 px-6 w-full box-border">
+            <div className={styles.container}>
                 {orderTypes.map((order) => {
                     const foundOrderIndex = orderStateClone.findIndex(
                         (orderStateItem) => orderStateItem.key === order.by,

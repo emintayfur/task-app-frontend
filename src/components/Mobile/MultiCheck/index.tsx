@@ -1,5 +1,7 @@
+import styles from '../../../styles/for-components/MultiCheck.module.css';
 import React, { useCallback } from 'react';
 import { IMultiCheckProps } from './types';
+import { classNameList } from '../../../utils/className';
 
 const MultiCheck = (props: IMultiCheckProps) => {
     const { value: valueInProps, options, onChange } = props;
@@ -28,7 +30,7 @@ const MultiCheck = (props: IMultiCheckProps) => {
     );
 
     return (
-        <div className="flex flex-col gap-5 font-inter font-medium">
+        <div className={styles.container}>
             {options.map((item, itemIdx) => {
                 const isActive = valueInProps.includes(item.value);
                 const onlySelectedThis =
@@ -37,26 +39,27 @@ const MultiCheck = (props: IMultiCheckProps) => {
 
                 return (
                     <div
-                        className="flex justify-between items-center"
+                        className={styles.itemGroup}
                         key={`multi_check_item_${item.value}_${itemIdx}`}
                     >
-                        <button className="text-grey-500">
+                        <button className={styles.itemName}>
                             <span>{item.name}</span>
                         </button>
 
-                        <div className="flex gap-5 justify-center items-center">
+                        <div className={styles.itemRightActions}>
                             <button
                                 disabled={onlySelectedThis}
-                                className="text-green-500 text-xs transition-all font-medium ease-in-out duration-300 opacity-100 disabled:opacity-50"
+                                className={styles.actionOnly}
                                 onClick={setOneValue(item.value)}
                             >
                                 <span>Sadece</span>
                             </button>
                             <button
                                 type="button"
-                                className={`w-6 h-6 rounded border-2 border-green-500 transition-all ease-in-out duration-300 ${
-                                    isActive ? 'bg-green-500' : 'bg-transparent'
-                                }`}
+                                className={classNameList([
+                                    styles.actionSelect,
+                                    isActive ? styles.active : undefined,
+                                ])}
                                 onClick={handleToggleCheckbox(item.value)}
                             />
                         </div>

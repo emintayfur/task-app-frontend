@@ -16,6 +16,10 @@
     @apply md:relative md:top-0 md:mx-0 md:w-fit md:right-auto md:justify-between;
 }
 
+.leftSection .goButton .logoSection {
+    @apply flex justify-center items-center gap-0.5;
+}
+
 .leftSection > h1 {
     @apply text-2xl;
     @apply sm:text-3xl;

@@ -18,3 +18,7 @@
     @apply h-[50px];
 }
 
+.submitButton {
+    @apply text-2xl;
+}
+

@@ -1,3 +1,4 @@
+import styles from '../../styles/dashboard/Desktop.module.css';
 import React, { useMemo } from 'react';
 import TaskBoard from '../TaskBoard';
 import AddTaskContainer from '../AddTask';
@@ -23,11 +24,11 @@ const DashboardDesktop = (props: IDashboardDesktopProps) => {
     }, [priorities.is.fetched, priorities.fetchedData.list]);
 
     return (
-        <div className="flex relative z-20 h-screen box-border flex-col justify-between items-center py-4 pt-10 gap-2">
-            <div className="flex flex w-10/12 mx-auto h-full">
+        <div className={styles.container}>
+            <div className={styles.subContainer}>
                 <Scrollbars universal>
-                    <div className="flex relative flex box-border h-full flex-1 pb-7 px-4">
-                        <div className="flex relative flex-1 gap-8 z-20 justify-center items-center">
+                    <div className={styles.boardsContainerParent}>
+                        <div className={styles.boardsContainer}>
                             {priorityList.map((priority) => (
                                 <TaskBoard
                                     priority={priority}

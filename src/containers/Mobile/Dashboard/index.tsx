@@ -1,3 +1,4 @@
+import styles from '../../../styles/dashboard/Mobile.module.css';
 import React, { useMemo } from 'react';
 import MobileHeader from '../Header';
 import TaskItem from '../../../components/TaskItem';
@@ -19,7 +20,7 @@ const DashboardMobile = (props: IDashboardMobileProps) => {
 
     return (
         <div>
-            <div className="flex flex-col w-full items-center relative z-20 flex-col gap-6 box-border pb-5">
+            <div className={styles.container}>
                 {/** Mobile Header */}
                 <MobileHeader
                     itemCount={totalItemCount}
@@ -31,12 +32,9 @@ const DashboardMobile = (props: IDashboardMobileProps) => {
 
                 {/** Task List */}
                 {Boolean(itemCount) && (
-                    <div className="flex justify-center items-center w-full">
-                        <div className=" w-11/12">
-                            <ul
-                                className="flex flex-col gap-4"
-                                ref={animateRef as any}
-                            >
+                    <div className={styles.body}>
+                        <div className={styles.listContainer}>
+                            <ul className={styles.list} ref={animateRef as any}>
                                 {tasks.map((item) => (
                                     <li key={`task_${item.id}`}>
                                         <TaskItem
@@ -55,7 +53,7 @@ const DashboardMobile = (props: IDashboardMobileProps) => {
 
                 {/** List end dot (.) */}
                 {Boolean(itemCount) && (
-                    <div className="py-3 font-inter text-grey-400 font-semibold text-3xl opacity-40">
+                    <div className={styles.footer}>
                         <span>.</span>
                     </div>
                 )}

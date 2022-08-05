@@ -1,5 +1,6 @@
+import styles from '../../../styles/for-containers/FilterBox.module.css';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import MobileBox from '../../../containers/Mobile/Box';
+import MobileBox from '../../../components/Mobile/Box';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import Tip from '../../../constants/tip';
 import IconX from '../../../assets/svg/icons/x.svg';
@@ -9,7 +10,7 @@ import {
     INITIAL_FILTER_STATE,
 } from '../../../store/reducers/filter';
 import { clearFilter, setFilter } from '../../../store/actions/filter';
-import MultiCheck from '../MultiCheck';
+import MultiCheck from '../../../components/Mobile/MultiCheck';
 import { IFilterBoxProps } from './types';
 
 const filterBoxFormInitialValues = {
@@ -21,6 +22,9 @@ const FilterBox = (props: IFilterBoxProps) => {
     const { boxManager } = props;
     const dispatch = useAppDispatch();
     const filter = useAppSelector((state) => state.filter);
+    const priorityList = useAppSelector(
+        (state) => state.priority.fetchedData.list,
+    );
     const [filterState, setFilterState] = useState(filterBoxFormInitialValues);
 
     const setFilterStateValue = useCallback(
@@ -44,7 +48,6 @@ const FilterBox = (props: IFilterBoxProps) => {
     const handleClickCancelButton = useCallback(() => {
         dispatch(clearFilter());
         boxManager.close();
-        // todo reset form
     }, [dispatch, boxManager]);
 
     const submitButton = useMemo(() => {
@@ -84,13 +87,13 @@ const FilterBox = (props: IFilterBoxProps) => {
             cancelButton={cancelButton}
             handleBackdropClick={boxManager.close}
         >
-            <div className="flex flex-col gap-5 px-8 w-full box-border">
+            <div className={styles.mainContainer}>
                 {/** Search Query */}
-                <div className="flex relative items-center">
+                <div className={styles.searchQueryContainer}>
                     {filterState.contains && (
                         <button
                             type="button"
-                            className="absolute right-3 text-grey-250 font-inter font-semibold text-[12px]"
+                            className={styles.searchQueryClearButton}
                             onClick={() => setFilterStateValue('contains', '')}
                         >
                             <IconX
@@ -103,7 +106,7 @@ const FilterBox = (props: IFilterBoxProps) => {
                     <input
                         value={filterState.contains}
                         type="text"
-                        className="font-inter font-medium text-grey-350 w-full bg-grey-200 rounded-lg p-2.5 outline-green-200 pr-10"
+                        className={styles.searchQueryInput}
                         placeholder={Tip.input.search}
                         onChange={(e) =>
                             setFilterStateValue('contains', e.target.value)
@@ -112,26 +115,16 @@ const FilterBox = (props: IFilterBoxProps) => {
                 </div>
 
                 {/** Priorities */}
-                <div className="my-2">
+                <div className={styles.prioritySelectorContainer}>
                     <MultiCheck
                         value={filterState.priorities}
                         onChange={(value) =>
                             setFilterStateValue('priorities', value)
                         }
-                        options={[
-                            {
-                                name: 'Acil',
-                                value: 'urgent',
-                            },
-                            {
-                                name: 'Önemli',
-                                value: 'important',
-                            },
-                            {
-                                name: 'Normal',
-                                value: 'normal',
-                            },
-                        ]}
+                        options={priorityList.map((priority) => ({
+                            name: priority.name,
+                            value: priority.id,
+                        }))}
                     />
                 </div>
             </div>

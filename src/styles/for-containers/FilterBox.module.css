@@ -1,0 +1,19 @@
+.mainContainer {
+    @apply flex flex-col gap-5 px-8 w-full box-border;
+}
+
+.searchQueryContainer {
+    @apply flex relative items-center;
+}
+
+.searchQueryClearButton {
+    @apply absolute right-3 text-grey-250 font-inter font-semibold text-[12px];
+}
+
+.searchQueryInput {
+    @apply font-inter font-medium text-grey-350 w-full bg-grey-200 rounded-lg p-2.5 outline-green-200 pr-10;
+}
+
+.prioritySelectorContainer {
+    @apply my-2;
+}

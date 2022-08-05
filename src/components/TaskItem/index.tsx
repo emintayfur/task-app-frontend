@@ -15,13 +15,7 @@ import IconPen from '../../assets/svg/icons/pen.svg';
 import IconX from '../../assets/svg/icons/x.svg';
 import { setEdit } from '../../store/actions/edit';
 import useMobileViewController from '../../hooks/useMobileViewController';
-
-const classNameList = (arr: any[]) => {
-    const filtered = arr.filter((arr) => arr);
-
-    if (!filtered.length) return undefined;
-    return filtered.join(' ');
-};
+import { classNameList } from '../../utils/className';
 
 const TaskItem = (props: ITaskItemProps) => {
     const {
@@ -129,7 +123,7 @@ const TaskItem = (props: ITaskItemProps) => {
                         >
                             <button
                                 type="button"
-                                className="z-40 relative"
+                                className={styles.actionDelete}
                                 ref={editActionButtonRef}
                                 onClick={handleEditButtonClick}
                             >

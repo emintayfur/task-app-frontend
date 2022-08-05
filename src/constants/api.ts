@@ -3,7 +3,7 @@ export const PRODUCTION_SERVER_URL = 'https://emins-tasks.herokuapp.com';
 
 export const SERVER_URL =
     process.env.NODE_ENV === 'development'
-        ? PRODUCTION_SERVER_URL
+        ? DEVELOPMENT_SERVER_URL
         : PRODUCTION_SERVER_URL;
 
 export const pathWithServerUrl = (endpoint: string) => {

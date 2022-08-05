@@ -1,3 +1,4 @@
+import styles from '../../../styles/for-containers/AddTaskBox.module.css';
 import React, {
     useCallback,
     useEffect,
@@ -6,7 +7,7 @@ import React, {
     useState,
 } from 'react';
 import { nanoid } from 'nanoid';
-import MobileBox from '../../../containers/Mobile/Box';
+import MobileBox from '../../../components/Mobile/Box';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { setSelectedPriority } from '../../../store/actions/priority';
 import { addTask } from '../../../store/actions/tasks';
@@ -86,15 +87,15 @@ const AddTaskBox = (props: IAddTaskBoxProps) => {
             cancelButton={{ title: 'Vazgeç', onClick: boxManager.close }}
             handleBackdropClick={boxManager.close}
         >
-            <div className="flex flex-col gap-5 px-6 w-full box-border">
-                <div className="flex pb-3 gap-4 overflow-x-auto">
+            <div className={styles.container}>
+                <div className={styles.prioritySelectorContainer}>
                     {priorities.fetchedData.list.map(
                         (priority, priorityIdx) => (
                             <div
                                 key={`priority_button_${priority.id}_${priorityIdx}`}
                             >
                                 <button
-                                    className="py-2 px-6 min-w-[100px] rounded-lg font-inter font-medium text-white transition-all ease-in-out duration-300"
+                                    className={styles.priorityButton}
                                     style={{
                                         backgroundColor:
                                             priority?.color?.primary,
@@ -115,14 +116,14 @@ const AddTaskBox = (props: IAddTaskBoxProps) => {
                     )}
                 </div>
 
-                <div className="flex relative">
-                    <div className="absolute top-5 right-3 text-grey-250 font-inter font-semibold text-[12px]">
+                <div className={styles.textContainer}>
+                    <div className={styles.remainingLength}>
                         <span>{remainingLength}</span>
                     </div>
                     <textarea
                         ref={textAreaRef}
                         value={text}
-                        className="font-inter font-medium text-grey-350 w-full bg-grey-200 rounded-lg p-4 pr-10 resize-none min-h-[140px]"
+                        className={styles.textArea}
                         placeholder={Tip.input.add}
                         onChange={onInputChange}
                         style={{

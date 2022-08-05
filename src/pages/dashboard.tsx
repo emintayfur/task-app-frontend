@@ -100,7 +100,7 @@ const RiseTechQDashboard: NextPage = () => {
     return (
         <>
             <Head>
-                <title>Görev Paneli | RiseTech</title>
+                <title>Görev Paneli | RiseQ</title>
             </Head>
             <FetchPriority />
             <BgLinearByPriority isMobile={isMobile} />

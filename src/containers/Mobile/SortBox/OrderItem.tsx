@@ -1,3 +1,4 @@
+import styles from '../../../styles/for-components/SortBox.module.css';
 import { IOrderItemProps } from './types';
 import { valueStrToOrderType } from '../../../constants/order';
 
@@ -10,20 +11,17 @@ const SortOrderItem = (props: IOrderItemProps) => {
         valueLabel = labels[orderType as keyof typeof labels];
 
     return (
-        <button
-            className="flex justify-between items-center px-3 py-2 border-2 border-green-200 rounded-lg font-inter font-semibold text-xs"
-            onClick={onClick}
-        >
+        <button className={styles.orderItemMainContainer} onClick={onClick}>
             {/* Order & Title */}
-            <div className="flex items-center gap-2.5 text-grey-400">
-                <div className="flex justify-center items-center w-6 h-6 rounded-full bg-green-200 text-white">
+            <div className={styles.orderItemLeftContent}>
+                <div className={styles.orderItemContentOrderIndex}>
                     <span>{index + 1}</span>
                 </div>
                 <p>{title}</p>
             </div>
 
             {/** Order Value */}
-            <div className="text-grey-500">
+            <div className={styles.orderItemContentOrderValue}>
                 <span>{valueLabel}</span>
             </div>
         </button>

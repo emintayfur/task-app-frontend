@@ -1,0 +1,23 @@
+.container {
+    @apply flex flex-col gap-5 px-6 w-full box-border;
+}
+
+.prioritySelectorContainer {
+    @apply flex pb-3 gap-4 overflow-x-auto;
+}
+
+.priorityButton {
+    @apply py-2 px-6 min-w-[100px] rounded-lg font-inter font-medium text-white transition-all ease-in-out duration-300;
+}
+
+.textContainer {
+    @apply flex relative;
+}
+
+.remainingLength {
+    @apply absolute top-5 right-3 text-grey-250 font-inter font-semibold text-[12px];
+}
+
+.textArea {
+    @apply font-inter font-medium text-grey-350 w-full bg-grey-200 rounded-lg p-4 pr-10 resize-none min-h-[140px];
+}

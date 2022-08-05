@@ -91,7 +91,7 @@ const EditPriorityBox = () => {
                     className={styles.boxHeader}
                     style={{ padding: BOX.padding }}
                 >
-                    <h6 className="text-md font-semibold">
+                    <h6 className={styles.headerText}>
                         {activePriority?.name || 'Öncelik'}
                     </h6>
 
@@ -103,7 +103,7 @@ const EditPriorityBox = () => {
                     >
                         <button
                             type="button"
-                            className="z-40 select-none"
+                            className={styles.buttonClose}
                             onClick={closeEditBox}
                         >
                             <IconX viewBox="0 0 64 64" width={22} height={22} />

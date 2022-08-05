@@ -1,4 +1,4 @@
-import { IOrderItem } from '../components/Mobile/SortBox/types';
+import { IOrderItem } from '../containers/Mobile/SortBox/types';
 
 export const valueStrToOrderType: any = {
     '-1': 'asc',

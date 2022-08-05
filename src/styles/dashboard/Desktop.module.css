@@ -1,0 +1,15 @@
+.container {
+    @apply flex relative z-20 h-screen box-border flex-col justify-between items-center py-4 pt-10 gap-2;
+}
+
+.subContainer {
+    @apply flex flex w-10/12 mx-auto h-full;
+}
+
+.boardsContainerParent {
+    @apply flex relative flex box-border h-full flex-1 pb-7 px-4;
+}
+
+.boardsContainer {
+    @apply flex relative flex-1 gap-8 z-20 justify-center items-center;
+}

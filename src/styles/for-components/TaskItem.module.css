@@ -20,6 +20,10 @@
     @apply text-red-400 opacity-100;
 }
 
+.actionDelete {
+    @apply z-40 relative;
+}
+
 .header button {
     @apply transition-all duration-300 ease-in-out;
 }
