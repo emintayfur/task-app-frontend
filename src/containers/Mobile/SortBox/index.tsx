@@ -1,5 +1,5 @@
 import styles from '../../../styles/for-components/SortBox.module.css';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import MobileBox from '../../../components/Mobile/Box';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import {
@@ -58,12 +58,8 @@ const SortBox = (props: ISortBoxProps) => {
         (order: IOrderItem, orderIdx: number, value: number = 0) =>
             () => {
                 const orderValues = [1, -1, 0];
-                const currentIndex = orderValues.indexOf(value);
-
-                let newIndex = currentIndex + 1;
-                if (newIndex > orderValues.length - 1) newIndex = 0;
-
-                const newValue = orderValues[newIndex];
+                const newValue =
+                    orderValues[(orderValues.indexOf(value) + 1) % 3];
 
                 if (!newValue) {
                     setOrderStateClone(
@@ -92,6 +88,10 @@ const SortBox = (props: ISortBoxProps) => {
             },
         [orderStateClone],
     );
+
+    useEffect(() => {
+        setOrderStateClone([...orderState]);
+    }, [orderState]);
 
     return (
         <MobileBox

@@ -42,7 +42,6 @@ const FaviconSetterByPriority = () => {
                     sizes="180x180"
                     href="/apple-touch-icon.png?v=0.1"
                 />
-                <link rel="manifest" href="/site.webmanifest?v=0.1" />
                 <link
                     rel="mask-icon"
                     href="/safari-pinned-tab.svg?v=0.1"

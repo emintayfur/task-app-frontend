@@ -11,6 +11,7 @@ import Tippy from '@tippyjs/react';
 import Tip from '../../constants/tip';
 import { setSelectedPriority } from '../../store/actions/priority';
 import { clearSearchQuery } from '../../store/actions/filter';
+import SortByName from '../../components/SortByName';
 
 const addTaskInitialValues = {
     task: '',
@@ -104,6 +105,8 @@ const AddTaskContainer = () => {
                     <Form>
                         <div className={styles.leftContainer}>
                             <RiseTechLogo />
+
+                            <SortByName />
 
                             <Tippy content={Tip.setPriorityButton}>
                                 <Button

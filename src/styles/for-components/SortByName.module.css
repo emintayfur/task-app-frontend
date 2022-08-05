@@ -1,0 +1,7 @@
+.buttonContainer {
+    @apply w-10 h-10 transition-all ease-in-out duration-500;
+}
+
+.deActive {
+    @apply text-grey-350 text-opacity-30;
+}

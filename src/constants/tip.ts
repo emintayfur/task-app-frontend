@@ -21,6 +21,13 @@ const Tip = {
         add: 'Veritabanı bağlantısını yap ...',
         search: '... içeren görevler',
     },
+    order: {
+        text: {
+            '-1': "Metne göre sıralama aktif; A'dan Z'ye göre sıralandı. Değiştirmek için tıkla",
+            '0': 'Metne göre sıralama DEAKTİF. Aktifleştirmek için tıkla',
+            '1': "Metne göre sıralama aktif; Z'den A'ya göre sıralandı. Değiştirmek için tıkla",
+        },
+    },
 };
 
 export default Tip;

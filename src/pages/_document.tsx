@@ -5,6 +5,8 @@ const AppDocument = () => {
     return (
         <Html>
             <Head>
+                <link rel="manifest" href="/site.webmanifest?v=0.1" />
+
                 {/** Fonts */}
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link
