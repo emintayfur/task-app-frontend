@@ -40,7 +40,10 @@ const DashboardMobile = (props: IDashboardMobileProps) => {
             </div>
 
             {/** Task list is empty message */}
-            {Boolean(totalItemCount) && <TaskListIsEmptyMessage />}
+            {Boolean(
+                !totalItemCount &&
+                    !(priorities.is.loading || !priorities.is.fetched),
+            ) && <TaskListIsEmptyMessage />}
 
             {/** Task List */}
             {Boolean(itemCount) && (

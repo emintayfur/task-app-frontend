@@ -15,10 +15,14 @@ const FetchPriority = () => {
     const dispatch = useAppDispatch();
 
     const getPriority = useQuery<IPriorityResponse>(
-        fetchPriority.queryKey,
-        fetchPriority,
+        fetchPriority.queryKey(false),
+        fetchPriority(false),
         {
+            refetchInterval: false,
+            refetchIntervalInBackground: false,
+            refetchOnMount: false,
             refetchOnWindowFocus: false,
+            retry: false,
             enabled: !priority.is.fetched,
             onSuccess(res) {
                 if (res?.success && res?.data) {
@@ -30,6 +34,9 @@ const FetchPriority = () => {
                             ),
                         ),
                     );
+                } else {
+                    dispatch(priorityFetchFailed());
+                    if ((res as any)?.message) alert((res as any)?.message);
                 }
             },
         },
