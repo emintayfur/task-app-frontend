@@ -25,6 +25,9 @@ const BgLinearByPriority = (props: IBgLinearByPriorityProps) => {
 
     let linearClassName = activePriority?.linearClassName;
     if (isMobile) linearClassName = 'bg-linear-green';
+    if (!isMobile && priority.is.loading) linearClassName = 'bg-linear-red';
+    if (!isMobile && Boolean(!priority.is.fetched && !priority.is.loading))
+        linearClassName = 'bg-linear-blue';
 
     if (!linearClassName) return <></>;
     return (

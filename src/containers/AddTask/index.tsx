@@ -22,27 +22,6 @@ const AddTaskContainer = () => {
 
     const dispatch = useAppDispatch();
 
-    const handleAddTaskFormSubmit = useCallback(
-        (values: any, { resetForm }: any) => {
-            if (!values?.task || !values?.task?.length) return;
-
-            if (priority.selectedPriority) {
-                dispatch(
-                    addTask({
-                        id: nanoid(),
-                        priority: priority.selectedPriority,
-                        text: values.task,
-                        createdAt: new Date().toISOString(),
-                    }),
-                );
-
-                dispatch(clearSearchQuery());
-                resetForm();
-            }
-        },
-        [priority.selectedPriority, dispatch],
-    );
-
     const activePriority = useMemo(() => {
         if (
             !(
@@ -72,6 +51,31 @@ const AddTaskContainer = () => {
 
         return priority.fetchedData.list;
     }, [priority]);
+
+    const formIsDisabled = useMemo(() => {
+        return !priority.is.fetched;
+    }, [priority.is.fetched]);
+
+    const handleAddTaskFormSubmit = useCallback(
+        (values: any, { resetForm }: any) => {
+            if (!values?.task || !values?.task?.length) return;
+
+            if (priority.selectedPriority) {
+                dispatch(
+                    addTask({
+                        id: nanoid(),
+                        priority: priority.selectedPriority,
+                        text: values.task,
+                        createdAt: new Date().toISOString(),
+                    }),
+                );
+
+                dispatch(clearSearchQuery());
+                resetForm();
+            }
+        },
+        [priority.selectedPriority, dispatch],
+    );
 
     const handleClickPriorityButton = useCallback(
         (e: any) => {
@@ -106,14 +110,18 @@ const AddTaskContainer = () => {
                         <div className={styles.leftContainer}>
                             <RiseTechLogo />
 
-                            <SortByName />
+                            <SortByName disabled={formIsDisabled} />
 
-                            <Tippy content={Tip.setPriorityButton}>
+                            <Tippy
+                                content={Tip.setPriorityButton}
+                                disabled={formIsDisabled}
+                            >
                                 <Button
                                     noShadow
-                                    title={activePriority?.name || ''}
+                                    title={activePriority?.name || '...'}
                                     size={ButtonSize.small}
                                     color={ButtonColor.lightBlue}
+                                    disabled={formIsDisabled}
                                     style={{
                                         backgroundColor:
                                             activePriority?.color?.secondary,
@@ -126,6 +134,7 @@ const AddTaskContainer = () => {
 
                             <div className={styles.inputContainer}>
                                 <InputField
+                                    disabled={formIsDisabled}
                                     fieldProps={{
                                         name: 'task',
                                     }}
@@ -141,7 +150,8 @@ const AddTaskContainer = () => {
                             color={ButtonColor.lightBlue}
                             disabled={Boolean(
                                 !formikProps.values.task?.length ||
-                                    formikProps.errors.task,
+                                    formikProps.errors.task ||
+                                    formIsDisabled,
                             )}
                             size={ButtonSize.small}
                             component="button"

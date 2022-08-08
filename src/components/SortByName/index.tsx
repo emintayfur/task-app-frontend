@@ -7,8 +7,10 @@ import { setOrder } from '../../store/actions/order';
 import { IOrderStateItem } from '../../store/reducers/order';
 import Tip from '../../constants/tip';
 import Tippy from '@tippyjs/react';
+import { ISortByNameProps } from './types';
 
-const SortByName = () => {
+const SortByName = (props: ISortByNameProps) => {
+    const { disabled } = props;
     const dispatch = useAppDispatch();
     const orderState = useAppSelector((state) => state.order);
 
@@ -33,8 +35,8 @@ const SortByName = () => {
     }, [value, dispatch, orderState]);
 
     const isDeActive = useMemo(() => {
-        return value === 0;
-    }, [value]);
+        return Boolean(value === 0 || disabled);
+    }, [value, disabled]);
 
     return (
         <Tippy content={Tip.order.text[value]} arrow={false}>
@@ -44,7 +46,8 @@ const SortByName = () => {
                     isDeActive ? styles.deActive : undefined,
                 ])}
                 type="button"
-                onClick={handleChangeValue}
+                onClick={disabled ? undefined : handleChangeValue}
+                disabled={disabled}
             >
                 <SortByNameIcon value={value} />
             </button>

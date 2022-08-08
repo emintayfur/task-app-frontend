@@ -19,6 +19,7 @@ const MobileHeader = (props: IMobileHeaderProps) => {
     const [cloneHeaderHeight, setCloneHeaderHeight] = useState(0);
     const containerRef = useRef<HTMLDivElement>(null);
 
+    const priorities = useAppSelector((state) => state.priority);
     const filter = useAppSelector((state) => state.filter);
 
     const addTaskBoxManager = useBoxManager(false);
@@ -88,7 +89,7 @@ const MobileHeader = (props: IMobileHeaderProps) => {
                         {headerLeft}
                     </div>
 
-                    {Boolean(itemCount) && (
+                    {Boolean(itemCount && priorities.is.fetched) && (
                         <div className={styles.leftSectionActions}>
                             <button type="button" onClick={sortBoxManager.open}>
                                 {sortIcon}
@@ -105,6 +106,7 @@ const MobileHeader = (props: IMobileHeaderProps) => {
 
                 {/** Right Section */}
                 <button
+                    disabled={!priorities.is.fetched}
                     className={styles.rightSection}
                     onClick={addTaskBoxManager.open}
                 >

@@ -19,7 +19,7 @@
 }
 
 .rightSection {
-    @apply w-[130px] text-[14px] font-semibold bg-white rounded-xl border shadow-md;
+    @apply w-[130px] text-[14px] font-semibold bg-white rounded-xl border shadow-md disabled:opacity-70 disabled:cursor-not-allowed;
 }
 
 

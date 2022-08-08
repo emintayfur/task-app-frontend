@@ -1,0 +1,11 @@
+.container {
+    @apply flex flex-col flex-1 w-full h-full justify-center items-center;
+}
+
+.context {
+    @apply -mt-24 xl:-mt-16 flex justify-center items-center;
+}
+
+.text {
+    @apply text-lg max-w-[80%] xl:max-w-[90%] xl:text-2xl text-grey-500 font-semibold font-inter text-center;
+}

@@ -3,8 +3,11 @@ import { useAppSelector } from '../../store/hooks';
 import Head from 'next/head';
 import { pathWithServerUrl } from '../../constants/api';
 import useMobileViewController from '../../hooks/useMobileViewController';
+import { useRouter } from 'next/router';
+import Route from '../../enums/Route';
 
 const FaviconSetterByPriority = () => {
+    const router = useRouter();
     const priority = useAppSelector((state) => state.priority);
     const isMobile = useMobileViewController();
 
@@ -34,7 +37,47 @@ const FaviconSetterByPriority = () => {
         isMobile,
     ]);
 
-    if (!activePriority) {
+    const blueIcons = useMemo(
+        () => (
+            <>
+                <link
+                    rel="icon"
+                    type="image/svg+xml"
+                    href="/favicon/blue/icon.svg"
+                />
+                <link
+                    rel="icon"
+                    type="image/png"
+                    href="/favicon/blue/icon.png"
+                />
+            </>
+        ),
+        [],
+    );
+
+    const redIcons = useMemo(
+        () => (
+            <>
+                <link
+                    rel="icon"
+                    type="image/svg+xml"
+                    href="/favicon/red/icon.svg"
+                />
+                <link
+                    rel="icon"
+                    type="image/png"
+                    href="/favicon/red/icon.png"
+                />
+            </>
+        ),
+        [],
+    );
+
+    const userInLandingPage = useMemo(() => {
+        return router.pathname === Route.landingPage;
+    }, [router]);
+
+    if (isMobile && !activePriority) {
         return (
             <Head>
                 <link
@@ -58,6 +101,20 @@ const FaviconSetterByPriority = () => {
         );
     }
 
+    if (!isMobile) {
+        return (
+            <Head>
+                {!userInLandingPage && priority.is.loading && redIcons}
+                {!userInLandingPage &&
+                    !priority.is.loading &&
+                    !priority.is.fetched &&
+                    blueIcons}
+                {userInLandingPage && blueIcons}
+            </Head>
+        );
+    }
+
+    if (!activePriority) return <></>;
     return (
         <Head>
             {activePriority.faviconPath?.svg && (

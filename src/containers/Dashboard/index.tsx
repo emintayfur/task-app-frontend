@@ -7,6 +7,8 @@ import { useAppSelector } from '../../store/hooks';
 import { IPriority } from '../../store/reducers/priority';
 import { getTasksByPriority } from '../../utils/task';
 import { IDashboardDesktopProps } from './types';
+import Loader from '../Loader';
+import ErrorContainer from '../ErrorContainer';
 
 const DashboardDesktop = (props: IDashboardDesktopProps) => {
     const { tasks } = props;
@@ -26,21 +28,36 @@ const DashboardDesktop = (props: IDashboardDesktopProps) => {
     return (
         <div className={styles.container}>
             <div className={styles.subContainer}>
-                <Scrollbars universal>
-                    <div className={styles.boardsContainerParent}>
-                        <div className={styles.boardsContainer}>
-                            {priorityList.map((priority) => (
-                                <TaskBoard
-                                    priority={priority}
-                                    key={`board_${priority.id}`}
-                                    items={getTasksByPriority(priority, tasks)}
-                                />
-                            ))}
+                {/** Loader */}
+                {priorities.is.loading && <Loader />}
+
+                {/** Error Container */}
+                {Boolean(!priorities.is.loading && !priorities.is.fetched) && (
+                    <ErrorContainer />
+                )}
+
+                {/** Boards / Priorities */}
+                {priorities.is.fetched && (
+                    <Scrollbars universal>
+                        <div className={styles.boardsContainerParent}>
+                            <div className={styles.boardsContainer}>
+                                {priorityList.map((priority) => (
+                                    <TaskBoard
+                                        priority={priority}
+                                        key={`board_${priority.id}`}
+                                        items={getTasksByPriority(
+                                            priority,
+                                            tasks,
+                                        )}
+                                    />
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                </Scrollbars>
+                    </Scrollbars>
+                )}
             </div>
 
+            {/** Add Task Container */}
             <AddTaskContainer />
         </div>
     );

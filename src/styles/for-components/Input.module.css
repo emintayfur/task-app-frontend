@@ -17,7 +17,7 @@
 
 .container > textarea,
 .container > input {
-    @apply px-4 box-border block w-full h-full bg-transparent outline-none  text-gray-500 font-medium placeholder-gray-400;
+    @apply px-4 box-border block w-full h-full bg-transparent outline-none  text-gray-500 font-medium placeholder-gray-400 disabled:opacity-70 disabled:cursor-not-allowed;
 }
 .container > textarea {
     @apply py-4 resize-none overflow-hidden max-h-[100%];
@@ -29,6 +29,9 @@
 .remainingCharactersLength {
     @apply font-semibold font-inter cursor-default;
 }
+.actionsAndFeedbacks > button {
+    @apply disabled:opacity-70 disabled:cursor-not-allowed;
+}
 
 .remainingCharacterOrange {
     @apply text-orange-200;
@@ -37,7 +40,6 @@
 .remainingCharacterRed {
     @apply text-red-200;
 }
-
 
 .back {
     @apply fixed box-border w-screen h-screen top-0 left-0 bg-black bg-opacity-30 z-40;

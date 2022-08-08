@@ -16,7 +16,7 @@ import { TASK_TEXT_MAX_LENGTH } from '../../store/reducers/tasks';
 
 const maxLength = TASK_TEXT_MAX_LENGTH;
 const InputField = (props: IInputFieldProps) => {
-    const { fieldProps } = props;
+    const { fieldProps, disabled = false } = props;
     const [isSmartInput, setIsSmartInput] = useState<boolean>(true);
     const [size, setSize] = useState<'big' | 'normal'>('normal');
     const dispatch = useAppDispatch();
@@ -58,28 +58,31 @@ const InputField = (props: IInputFieldProps) => {
     }, [size]);
 
     const handleClickResizeIcon = useCallback(() => {
+        if (disabled) return;
         setSize(size === 'big' ? 'normal' : 'big');
-    }, [size]);
+    }, [size, disabled]);
 
     const handleInputChange = useCallback<
         ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>
     >(
         (event) => {
+            if (disabled) return;
             const value = event.target.value;
             helpers.setValue(value);
             helpers.setTouched(true);
 
             if (isSmartInput) dispatch(setSearchQuery(value));
         },
-        [helpers, dispatch, isSmartInput],
+        [helpers, dispatch, isSmartInput, disabled],
     );
 
     const toggleSmartInput = useCallback(() => {
+        if (disabled) return;
         let searchValue = isSmartInput ? null : field.value;
 
         setIsSmartInput(!isSmartInput);
         dispatch(setSearchQuery(searchValue));
-    }, [dispatch, isSmartInput, field.value]);
+    }, [dispatch, isSmartInput, field.value, disabled]);
 
     const defaultInputProps = {
         placeholder: Tip.input.add,
@@ -87,6 +90,7 @@ const InputField = (props: IInputFieldProps) => {
         minLength: 0,
         ...field,
         onChange: handleInputChange,
+        disabled,
     };
 
     return (
@@ -113,7 +117,11 @@ const InputField = (props: IInputFieldProps) => {
                                 : Tip.inputSizeIs.normal
                         }
                     >
-                        <button type="button" onClick={handleClickResizeIcon}>
+                        <button
+                            type="button"
+                            onClick={handleClickResizeIcon}
+                            disabled={disabled}
+                        >
                             {resizeIcon(inputIconProps)}
                         </button>
                     </Tippy>
@@ -124,7 +132,11 @@ const InputField = (props: IInputFieldProps) => {
                                 : Tip.smartInputIs.deActive
                         }
                     >
-                        <button type="button" onClick={toggleSmartInput}>
+                        <button
+                            type="button"
+                            onClick={toggleSmartInput}
+                            disabled={disabled}
+                        >
                             {isSmartInput && (
                                 <IconBoltFilled {...inputIconProps} />
                             )}
